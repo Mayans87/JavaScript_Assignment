@@ -1,0 +1,77 @@
+<!-- Demonstrate Form-Validation through JavaScript
+- Include name, password, confirm password, mobile number, email -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation </title>
+  <script>
+    function validateForm() {
+      const name = document.forms["myForm"]["name"].value;
+      const password = document.forms["myForm"]["password"].value;
+      const confirmPassword = document.forms["myForm"]["confirmPassword"].value;
+      const mobile = document.forms["myForm"]["mobile"].value;
+      const email = document.forms["myForm"]["email"].value;
+
+      // Regular expressions for validation
+      const nameRegex = /^[a-zA-Z ]+$/;
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      const mobileRegex = /^\d{10}$/;
+      const emailRegex = /^\S+@\S+\.\S+$/;
+
+      // Validate name
+      if (!name.match(nameRegex)) {
+        alert("Name must contain only letters and spaces.");
+        return false;
+      }
+
+      // Validate password
+      if (!password.match(passwordRegex)) {
+        alert("Password must be at least 8 characters long and contain at least one letter and one digit.");
+        return false;
+      }
+
+      // Validate confirm password
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+      }
+
+      // Validate mobile number
+      if (!mobile.match(mobileRegex)) {
+        alert("Mobile number must be 10 digits long.");
+        return false;
+      }
+
+      // Validate email
+      if (!email.match(emailRegex)) {
+        alert("Invalid email format.");
+        return false;
+      }
+
+      // If all fields are valid, the form will submit
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <form name="myForm" onsubmit="return validateForm()" action="submit_action.php" method="post">
+    <label for="name">Name:</label>
+    <input type="text" name="name" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" required><br>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" name="confirmPassword" required><br>
+
+    <label for="mobile">Mobile Number:</label>
+    <input type="text" name="mobile" required><br>
+
+    <label for="email">Email:</label>
+    <input type="text" name="email" required><br>
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

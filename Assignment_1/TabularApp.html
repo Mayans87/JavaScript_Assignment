@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.0.6/css/tabulator.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.0.6/js/tabulator.min.js"></script>
+</head>
+<body>
+  <div id="example-table"></div>
+  <button id="addDataButton">Add Data</button>
+  <div id="pagination" class="tabulator-pagination"></div>
+  <div>
+    <button id="firstPageButton">First Page</button>
+    <button id="prevPageButton">Previous</button>
+    <button id="nextPageButton">Next</button>
+    <button id="lastPageButton">Last Page</button>
+  </div>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  var table = new Tabulator("#example-table", {
+    layout: "fitDataFill",
+    pagination: "local",
+    paginationSize: 50,
+    data: [], // Initialize with an empty dataset
+    columns: [
+      { title: "Number", field: "number", sorter: "number" },
+      { title: "Date Time", field: "datetime", sorter: "datetime" },
+      { title: "Text", field: "text" },
+    ],
+  });
+
+  function addRandomData() {
+    var newData = [];
+    for (var i = 0; i < 100; i++) {
+      newData.push({
+        number: Math.floor(Math.random() * 1000),
+        datetime: new Date().toISOString(),
+        text: "Text " + Math.floor(Math.random() * 100),
+      });
+    }
+    table.addData(newData);
+    table.setPage(1); // Reset to the first page after adding data
+  }
+
+  document.getElementById("addDataButton").addEventListener("click", addRandomData);
+  document.getElementById("firstPageButton").addEventListener("click", function () {
+    table.setPage(1);
+  });
+  document.getElementById("prevPageButton").addEventListener("click", function () {
+    table.previousPage();
+  });
+  document.getElementById("nextPageButton").addEventListener("click", function () {
+    table.nextPage();
+  });
+  document.getElementById("lastPageButton").addEventListener("click", function () {
+    table.setPage(table.getPageMax());
+  });
+});
+
+  </script>
+</body>
+</html>

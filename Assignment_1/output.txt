@@ -1,0 +1,3 @@
+Word Count: 5
+Line Count: 3
+Total Size: 75 bytes
